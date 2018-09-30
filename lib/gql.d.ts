@@ -180,7 +180,7 @@ before?: string | null;
 last?: number | null;
 }
 
-type Node = ICourse | ICourseUnit | IUnitSection | ISectionCard | IEmbeddedDocRef | IEmbeddedDocRefRecord | IVersionedContentRecord | IQuestion | IQuestionData | IQuestionMultipleData | ICourseDeliverySchedule | IScheduledRunSessionInfoType | IScheduledRunType | IItemPriceType | IScheduledRunSessionType | ISessionInstructorType | IUser | IUserSubscription | IAuthStrategy | IUserOrganizationRole | IUserCourseRole | IExam | IExamAttempt | IActivity | IUserNotification | ILang | IListDef;
+type Node = ICourse | ICourseUnit | IUnitSection | ISectionCard | IEmbeddedDocRefRecord | IVersionedContentRecord | IQuestion | IQuestionData | IQuestionMultipleData | ICourseDeliverySchedule | IScheduledRunSessionInfoType | IScheduledRunType | IScheduledRunSessionType | ISessionInstructorType | IUser | IUserSubscription | IAuthStrategy | IUserOrganizationRole | IUserCourseRole | IExam | IExamAttempt | IActivity | IUserNotification | ILang | IListDef;
 
 interface INode {
 __typename: "Node";
@@ -352,7 +352,6 @@ currentSectionId: string;
 
 interface IEmbeddedDocRef {
 __typename: "EmbeddedDocRef";
-id: string;
 embedded_doc_refs: IEmbeddedDocRefRecordConnection;
 }
 
@@ -472,7 +471,6 @@ seat_purchased: boolean | null;
 
 interface IItemPriceType {
 __typename: "ItemPriceType";
-id: string;
 amount: number | null;
 }
 
@@ -490,9 +488,12 @@ session_duration: IEventDuration | null;
 interface ISessionInstructorType {
 __typename: "SessionInstructorType";
 id: string;
+_id: string | null;
 full_name: string | null;
 username: string | null;
 avatar_url: string | null;
+headline: string | null;
+biography: string | null;
 }
 
 interface IUserActivity {

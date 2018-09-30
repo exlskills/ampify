@@ -1,7 +1,13 @@
 import * as express from 'express';
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { getCourseSectionCard } from '../controllers/course-section-cards';
+import { Request, Response, NextFunction } from 'express';
+import {fromUrlId} from "../utils/url-ids";
+import {getGQLToken} from "../lib/anon";
+import GqlApi from "../lib/gql-api";
 
 const router = express.Router();
+let gqlToken = '';
+let gqlClient: GqlApi = null;
 
 interface IViewResponse {
     view: string
@@ -17,8 +23,16 @@ type ControllerFunction = (...args: any[]) => Promise<IViewResponse>
  * @param promise Controller Promise.
  * @param params (req) => [params, ...].
  */
-const controllerHandler = (promise: ControllerFunction, params: ParamsFunction) => async (req: Request, res: Response, next?: NextFunction) => {
-    const boundParams = params ? params(req, res, next) : [req, res, next];
+const gqlBaseControllerHandler = (promise: ControllerFunction, params: ParamsFunction) => async (req: Request, res?: Response, next?: NextFunction) => {
+    if (!gqlToken) {
+        gqlToken = await getGQLToken()
+    }
+    if (!gqlClient) {
+        gqlClient = new GqlApi(gqlToken)
+    }
+    const initialParams = params ? params(req, res, next) : [req, res, next];
+    let boundParams = [gqlClient]
+    boundParams.push(...initialParams)
     try {
         const result = await promise(...boundParams);
         return res.render(result.view, result.data);
@@ -28,7 +42,8 @@ const controllerHandler = (promise: ControllerFunction, params: ParamsFunction) 
 };
 
 // Convenient short-hand version
-const c = controllerHandler;
+const gc = gqlBaseControllerHandler;
 
+router.get('/amp/learn-:locale/courses/:course/units/:unit/sections/:section/card/:card', gc(getCourseSectionCard, req => [req.params.locale, fromUrlId('Course', req.params.course), fromUrlId('CourseUnit', req.params.unit), fromUrlId('UnitSection', req.params.section), fromUrlId('SectionCard', req.params.card)]))
 
 export default router;

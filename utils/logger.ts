@@ -13,8 +13,6 @@ export default winston.createLogger({
                 )
             )
         })
-        // new winston.transports.File(options.errorFile),
-        // new winston.transports.File(options.file)
     ],
     exitOnError: false // do not exit on handled exceptions
 });

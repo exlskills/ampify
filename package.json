@@ -4,11 +4,14 @@
   "description": "Make EXLskills more AMP!",
   "main": "index.js",
   "dependencies": {
+    "@types/showdown": "^1.7.5",
+    "axios": "^0.18.0",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "gql2ts": "^1.10.1",
+    "showdown": "^1.8.6",
     "winston": "^3.1.0"
   },
   "devDependencies": {
@@ -18,7 +21,8 @@
     "@types/express-handlebars": "0.0.30"
   },
   "scripts": {
-    "start": "npm run build && node .",
+    "start": "npm run build && npm run start:production",
+    "start:production": "node .",
     "build": "npm run build:gql && npm run build:ts",
     "build:ts": "tsc",
     "build:gql": "gql2ts -o ./lib/gql.d.ts schema.graphql",
