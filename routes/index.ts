@@ -44,6 +44,6 @@ const gqlBaseControllerHandler = (promise: ControllerFunction, params: ParamsFun
 // Convenient short-hand version
 const gc = gqlBaseControllerHandler;
 
-router.get('/amp/learn-:locale/courses/:course/units/:unit/sections/:section/card/:card', gc(getCourseSectionCard, req => [req.params.locale, fromUrlId('Course', req.params.course), fromUrlId('CourseUnit', req.params.unit), fromUrlId('UnitSection', req.params.section), fromUrlId('SectionCard', req.params.card)]))
+router.get('/amp/learn-:locale/courses/:course/units/:unit/sections/:section/card/:card', gc(getCourseSectionCard, req => [req.params.locale, fromUrlId('Course', req.params.course), fromUrlId('CourseUnit', req.params.unit), req.params.unit, fromUrlId('UnitSection', req.params.section), req.params.section, fromUrlId('SectionCard', req.params.card)]))
 
 export default router;

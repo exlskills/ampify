@@ -64,6 +64,7 @@ export default class GqlApi {
                     content {
                         id
                         version
+                        content
                     }
                     question {
                         id
@@ -72,19 +73,6 @@ export default class GqlApi {
             }
         `;
         return (await this.request(q)).cardEntry!
-    }
-
-    public async getVersionedContent(contentId: string, version: number): Promise<IVersionedContentRecord> {
-        const q = `
-            {
-                oneVersionedContent(content_id: "${contentId}", version: "${version}") {
-                    id
-                    version
-                    content
-                }
-            }
-        `;
-        return (await this.request(q)).oneVersionedContent!
     }
 
     public async getCourseByID(courseId: string): Promise<ICourse> {
