@@ -14,6 +14,7 @@
     "express-handlebars": "^3.0.0",
     "gql2ts": "^1.10.1",
     "showdown": "^1.8.6",
+    "tsc": "^1.20150623.0",
     "winston": "^3.1.0"
   },
   "devDependencies": {
