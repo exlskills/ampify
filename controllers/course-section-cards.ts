@@ -22,7 +22,6 @@ export async function getCourseSectionCard(client: GqlApi, locale: string, cours
             </amp-iframe>
         `)
     });
-    console.log();
     return {
         view: 'course_section_card',
         data: {
