@@ -13,7 +13,7 @@ export async function getCourseSectionCard(client: GqlApi, locale: string, cours
     const $ = cheerio.load(mdToHTML.makeHtml(card.content.content));
     $('iframe').each(function () {
         $(this).replaceWith(`
-            <amp-iframe width="200"
+            <amp-iframe width="100"
                 height="100"
                 sandbox="allow-scripts allow-same-origin"
                 layout="responsive"
